@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Book Recommendator</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body class="bg-gray-900 text-gray-100">
+
+  <div class="container mx-auto p-8">
+    <h1 class="text-4xl font-bold text-center mb-8">Welcome to Book Recommendator</h1>
+    <p class="text-center text-lg mb-12 text-gray-400">Discover new books based on your preferences.</p>
+
+    <!-- Book Cards Grid -->
+    <div class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8">
+
+      {% for i in range(book_name|length) %}
+      <div class="bg-gray-800 shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-shadow">
+        <img src="{{ image[i] }}" alt="Book Cover" class="w-full h-60 object-cover">
+        <div class="p-4">
+          <h2 class="text-lg font-semibold text-white">{{ book_name[i] }}</h2>
+          <p class="text-sm text-gray-400 mb-2">by {{ author[i] }}</p>
+          <p class="text-yellow-400">⭐ {{ ratings[i]|round(1) }}</p>
+          <p class="text-sm text-gray-400">Votes - {{ votes[i] }}+</p>
+        </div>
+      </div>
+      {% endfor %}
+
+    </div>
+  </div>
+
+</body>
+</html>
