@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" class="dark">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Book Recommendator</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+  <body class="bg-gray-900 text-gray-100 min-h-screen">
+    <div class="container mx-auto p-8">
+      <h1 class="text-4xl font-bold text-center mb-6">
+        📚 Ready to explore your next favorite book?
+      </h1>
+      <p class="text-center text-lg mb-10 text-gray-400">
+        Discover new books based on your preferences.
+      </p>
+
+      <form
+        action="/recommend_books"
+        method="post"
+        class="max-w-2xl mx-auto mb-12"
+      >
+        <div class="flex flex-col sm:flex-row items-center gap-4">
+          <input
+            name="user_input"
+            type="text"
+            required
+            placeholder="Enter a book title..."
+            class="w-full px-4 py-3 rounded-md bg-gray-800 border border-gray-700 text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-yellow-400"
+          />
+          <button
+            type="submit"
+            class="px-6 py-3 bg-yellow-500 text-gray-900 font-semibold rounded-md hover:bg-yellow-400 transition"
+          >
+            Recommend
+          </button>
+        </div>
+      </form>
+
+      {% if data %}
+      <div
+        class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8"
+      >
+        {% for i in data %}
+        <div
+          class="bg-gray-800 shadow-md rounded-lg overflow-hidden hover:shadow-lg transition-shadow"
+        >
+          <img
+            src="{{ i[2] }}"
+            alt="Book Cover"
+            class="w-full h-60 object-cover"
+          />
+          <div class="p-4">
+            <h2 class="text-lg font-semibold text-white">{{ i[0] }}</h2>
+            <p class="text-sm text-gray-400 mb-2">by {{ i[1] }}</p>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+      {% elif no_match %}
+      <div
+        class="bg-yellow-100 border-l-4 border-yellow-500 text-yellow-700 p-4 rounded-md max-w-xl mx-auto mt-12 shadow-md"
+      >
+        <div class="flex items-center gap-2">
+          <svg
+            class="w-6 h-6 text-yellow-500"
+            fill="none"
+            stroke="currentColor"
+            stroke-width="2"
+            viewBox="0 0 24 24"
+          >
+            <path
+              stroke-linecap="round"
+              stroke-linejoin="round"
+              d="M13 16h-1v-4h-1m1-4h.01M12 20c4.418 0 8-3.582 8-8s-3.582-8-8-8-8 3.582-8 8 3.582 8 8 8z"
+            />
+          </svg>
+          <p>
+            <strong>Warning:</strong> Please write the full name of the book
+            title.
+          </p>
+        </div>
+      </div>
+      {% endif %}
+    </div>
+  </body>
+</html>
